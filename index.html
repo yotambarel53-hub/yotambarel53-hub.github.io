@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>לזכרם — אתר הנצחה לחללי מערכות ישראל</title>
+  <meta name="description" content="חיפוש ותצוגה של חללי מערכות ישראל ומגיני היישוב." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@500;700;900&family=Suez+One&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf6f1; --card: #ffffff; --ink: #2c2a3a;
+      --accent: #7a5cd6; --accent-2: #5b3fb0; --gold: #e6a94a;
+      --coral: #f4896b; --rose: #e07a9b; --teal: #3fa796;
+      --muted: #8b8798; --border: #f0e8f2; --shadow: 0 16px 38px rgba(96,64,150,.16);
+      --grad: linear-gradient(135deg, #7a5cd6 0%, #a75fc8 55%, #e07aa0 100%);
+      --grad-warm: linear-gradient(135deg, #f6a25c 0%, #f4896b 55%, #e0729b 100%);
+      --grad-teal: linear-gradient(135deg, #43b3a3 0%, #6a8ad6 100%);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: "Assistant", "Heebo", "Segoe UI", Arial, sans-serif; color: var(--ink); line-height: 1.65; overflow-x: hidden; -webkit-text-size-adjust: 100%;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(680px 460px at 8% -4%, rgba(244,137,107,.16), transparent 62%),
+        radial-gradient(760px 520px at 98% 6%, rgba(122,92,214,.16), transparent 62%),
+        radial-gradient(720px 560px at 50% 108%, rgba(63,167,150,.14), transparent 62%);
+      background-attachment: fixed; }
+    img { display: block; max-width: 100%; }
+
+    header.hero { position: relative;
+      background: radial-gradient(900px 360px at 15% -30%, rgba(255,255,255,.30), transparent 60%),
+                  radial-gradient(700px 320px at 92% 120%, rgba(255,205,140,.35), transparent 60%),
+                  var(--grad);
+      color: #fff; padding: 44px 20px 78px; overflow: hidden; border-radius: 0 0 34px 34px; }
+    header.hero::before { content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+      top: -130px; inset-inline-start: -70px; background: radial-gradient(circle, rgba(255,255,255,.25), transparent 62%); pointer-events: none; }
+    header.hero::after { content: ""; position: absolute; width: 340px; height: 340px; border-radius: 50%;
+      bottom: -180px; inset-inline-end: -80px; background: radial-gradient(circle, rgba(255,180,200,.35), transparent 65%); pointer-events: none; }
+    .hero-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+    .hero .flame { width: 46px; height: 46px; margin: 0 auto 10px; opacity: .95; }
+    .hero h1 { font-family: "Suez One", "Frank Ruhl Libre", "Heebo", serif; font-weight: 400; letter-spacing: .5px; margin: 0 0 8px; font-size: clamp(1.9rem, 4.5vw, 3.1rem); }
+    .hero p { margin: 0; opacity: .88; font-size: 1rem; }
+    .hero .stat { margin-top: 14px; display: inline-flex; gap: 10px; align-items: center;
+      background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18); padding: 6px 16px; border-radius: 999px; font-size: .92rem; }
+    .hero .stat b { color: #f2d9ac; font-weight: 700; }
+    .auth-btn { position: absolute; top: 16px; inset-inline-start: 18px; z-index: 3;
+      background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.40);
+      padding: 8px 16px; border-radius: 999px; font-family: inherit; font-weight: 600; font-size: .88rem; cursor: pointer; backdrop-filter: blur(4px); transition: background .15s, transform .15s; }
+    .auth-btn:hover { background: rgba(255,255,255,.28); transform: translateY(-1px); }
+    .auth-btn.on { background: #fff; color: var(--accent); border-color: #fff; }
+    .events-btn { position: absolute; top: 16px; inset-inline-end: 18px; z-index: 3;
+      background: rgba(255,255,255,.95); color: #7a3f8f; border: none;
+      padding: 9px 18px; border-radius: 999px; font-family: inherit; font-weight: 800; font-size: .88rem; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 8px 20px rgba(60,20,90,.28); transition: transform .15s, box-shadow .15s; }
+    .events-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(60,20,90,.36); }
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    .searchbar { display: flex; gap: 8px; margin: -34px auto 30px; max-width: 680px; background: var(--card);
+      padding: 8px; border-radius: 999px; box-shadow: 0 18px 40px rgba(96,64,150,.18); position: relative; z-index: 2; border: 1px solid rgba(255,255,255,.6); }
+    .searchbar input { flex: 1; border: none; outline: none; font-size: 1rem; padding: 12px 22px; background: transparent; font-family: inherit; color: var(--ink); }
+    .searchbar button { border: none; background: var(--grad); color: #fff; border-radius: 999px; padding: 12px 30px; font-size: 1rem; font-family: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 8px 18px rgba(122,92,214,.35); transition: filter .15s, transform .15s; }
+    .searchbar button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    .cards { display: grid; gap: 18px; grid-template-columns: repeat(1, 1fr); }
+    @media (min-width: 520px)  { .cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 840px)  { .cards { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1120px) { .cards { grid-template-columns: repeat(4, 1fr); } }
+
+    .card { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 22px; overflow: hidden;
+      cursor: pointer; display: flex; flex-direction: column; box-shadow: 0 6px 20px rgba(96,64,150,.07);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--grad); border-radius: 22px 22px 0 0; z-index: 2; }
+    .card:nth-child(4n+2)::before { background: var(--grad-warm); }
+    .card:nth-child(4n+3)::before { background: var(--grad-teal); }
+    .card:nth-child(4n+4)::before { background: linear-gradient(135deg, #e6a94a, #e07a9b); }
+    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: #e6d8ee; }
+    .card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .card-photo { position: relative; aspect-ratio: 4 / 5; background: #e6ecef; overflow: hidden; }
+    .card-photo img.photo { width: 100%; height: 100%; object-fit: cover; filter: grayscale(18%); transition: filter .25s, transform .4s; }
+    .card:hover .card-photo img.photo { filter: grayscale(0%); transform: scale(1.03); }
+    .card-photo .unit-icon { position: absolute; bottom: 10px; inset-inline-start: 10px; width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,.92); padding: 5px; object-fit: contain; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+    .badges { position: absolute; top: 10px; inset-inline-start: 10px; display: flex; gap: 6px; }
+    .badge { font-size: .72rem; font-weight: 800; color: #fff; padding: 3px 11px; border-radius: 999px; background: var(--grad); box-shadow: 0 3px 10px rgba(0,0,0,.18); }
+    .badge.warn { background: linear-gradient(135deg, #e0729b, #c0392b); }
+    .badge.event { background: linear-gradient(135deg, #e6a94a, #f4896b); }
+    .icon-btn { position: absolute; top: 10px; width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
+      background: rgba(255,255,255,.92); display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0,0,0,.18); transition: background .15s, transform .15s; }
+    .icon-btn:hover { background: #fff; transform: scale(1.06); }
+    .icon-btn svg { width: 20px; height: 20px; }
+    .bell { inset-inline-end: 10px; }
+    .bell svg { fill: var(--accent); }
+    .evt-btn { inset-inline-end: 56px; display: none; }
+    .evt-btn svg { fill: var(--gold); }
+    body.admin .evt-btn { display: grid; }
+    .evt-view { inset-inline-end: 56px; }
+    body.admin .evt-view { inset-inline-end: 102px; }
+    .evt-view svg { fill: var(--accent); }
+
+    .card-body { padding: 14px 16px 16px; }
+    .card-body h3 { margin: 0 0 4px; font-size: 1.12rem; font-weight: 700; line-height: 1.3; font-family: "Frank Ruhl Libre", "Heebo", serif; }
+    .card-body .role { margin: 0; color: var(--accent); font-size: .9rem; font-weight: 600; }
+    .card-body .dates { margin: 6px 0 0; color: var(--muted); font-size: .86rem; }
+    .card-body .more { margin-top: 10px; font-size: .85rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    .status { text-align: center; color: var(--muted); padding: 30px; font-size: 1rem; }
+    .loadmore { display: flex; justify-content: center; margin: 30px 0; }
+    .loadmore button { border: none; color: #fff; background: var(--grad); padding: 12px 38px;
+      border-radius: 999px; font-size: 1rem; font-family: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 10px 22px rgba(122,92,214,.32); transition: filter .15s, transform .15s; }
+    .loadmore button:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+    .modal-bg { position: fixed; inset: 0; background: rgba(40,22,60,.55); display: none; align-items: flex-start; justify-content: center;
+      padding: 28px 16px; overflow-y: auto; z-index: 50; backdrop-filter: blur(5px); }
+    .modal-bg.open { display: flex; }
+    .modal { background: #fff; border-radius: 24px; max-width: 760px; width: 100%; position: relative; overflow: hidden; box-shadow: 0 30px 70px rgba(40,22,60,.35); animation: pop .18s ease; }
+    @keyframes pop { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+    .modal .close { position: absolute; top: 14px; inset-inline-start: 14px; border: none; background: rgba(255,255,255,.92);
+      width: 38px; height: 38px; border-radius: 50%; font-size: 1.15rem; cursor: pointer; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+    .modal-head { display: flex; gap: 20px; align-items: center; background: radial-gradient(600px 260px at 80% -40%, rgba(255,255,255,.28), transparent 60%), var(--grad); color: #fff; padding: 26px 24px; }
+    .modal-head img.photo { width: 116px; height: 146px; object-fit: cover; border-radius: 16px; box-shadow: 0 8px 22px rgba(0,0,0,.3); flex: 0 0 auto; background: #5b3fb0; }
+    .modal-head h2 { margin: 0 0 6px; font-family: "Frank Ruhl Libre", serif; font-size: 1.5rem; }
+    .modal-head .sub { opacity: .92; font-size: .95rem; }
+    .modal-body { padding: 22px 24px 28px; }
+    .section-title { font-size: .95rem; font-weight: 800; margin: 4px 0 12px; border-inline-start: 4px solid var(--coral); padding-inline-start: 10px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    dl.fields { display: grid; grid-template-columns: 150px 1fr; gap: 10px 18px; margin: 0 0 22px; }
+    dl.fields dt { color: var(--muted); font-size: .9rem; }
+    dl.fields dd { margin: 0; font-size: .95rem; }
+    .story { white-space: pre-wrap; background: linear-gradient(180deg, #faf7ff, #fdf6fb); border: 1px solid var(--border); border-radius: 16px; padding: 18px; max-height: 340px; overflow-y: auto; font-size: .95rem; line-height: 1.75; }
+    .src-link { display: inline-block; margin-top: 18px; color: var(--accent); font-size: .88rem; font-weight: 700; text-decoration: none; }
+    .src-link:hover { text-decoration: underline; }
+
+    .events-list { display: grid; gap: 12px; margin-bottom: 22px; }
+    .event-item { border: 1px solid var(--border); border-inline-start: 4px solid var(--coral); border-radius: 14px; padding: 12px 14px; background: #fffaf5; }
+    .event-item h4 { margin: 0 0 4px; font-size: 1rem; }
+    .event-item .when { color: var(--accent); font-weight: 700; font-size: .88rem; }
+    .event-item p { margin: 6px 0 0; font-size: .92rem; color: #4a4358; }
+    .event-item .loc { color: var(--muted); font-size: .86rem; margin-top: 4px; }
+    .events-empty { color: var(--muted); font-size: .9rem; background: #f8f5fc; border: 1px dashed #dccfe8; border-radius: 14px; padding: 14px; margin-bottom: 22px; }
+
+    .subscribe-btn { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 22px; border: none;
+      color: #fff; background: var(--grad); padding: 11px 22px; border-radius: 999px; font-family: inherit; font-weight: 700; font-size: .95rem; cursor: pointer; box-shadow: 0 10px 22px rgba(122,92,214,.32); transition: filter .15s, transform .15s; }
+    .subscribe-btn:hover { filter: brightness(1.08); transform: translateY(-2px); }
+    .subscribe-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    #subBg, #loginBg, #evtBg { z-index: 60; }
+
+    /* Events map overlay */
+    .map-overlay { position: fixed; inset: 0; background: rgba(40,22,60,.62); display: none; z-index: 70;
+      align-items: center; justify-content: center; padding: 16px; overflow: auto; backdrop-filter: blur(5px); }
+    .map-overlay.open { display: flex; }
+    .map-panel { background: #fff; border-radius: 24px; width: 100%; max-width: 940px; padding: 22px; position: relative;
+      animation: pop .18s ease; max-height: 94vh; display: flex; flex-direction: column; box-shadow: 0 30px 70px rgba(40,22,60,.35); }
+    .map-panel h3 { margin: 0 0 4px; font-family: "Frank Ruhl Libre", serif; font-size: 1.35rem; }
+    .map-panel .subhint { margin: 0 0 12px; color: var(--muted); font-size: .86rem; }
+    .map-close { top: 12px; inset-inline-start: auto; inset-inline-end: 14px; }
+    .map-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 12px; }
+    .map-tool { border: none; background: #f1ebfa; color: var(--accent); padding: 9px 16px; border-radius: 12px;
+      font-family: inherit; font-weight: 700; font-size: .9rem; cursor: pointer; transition: transform .12s; }
+    .map-tool:hover { transform: translateY(-1px); background: #e9e0f7; }
+    .radius-ctrl { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--muted); flex: 1 1 240px; min-width: 220px; }
+    .radius-ctrl input[type=range] { flex: 1; accent-color: var(--accent); }
+    .radius-ctrl b { color: var(--accent); min-width: 58px; }
+    .map-body { display: flex; gap: 14px; flex: 1 1 auto; min-height: 0; }
+    #mapCanvas { flex: 1 1 60%; min-height: 340px; border-radius: 18px; border: 1px solid var(--border); background: #e8e2f0; }
+    .map-results { flex: 1 1 40%; max-height: 460px; overflow-y: auto; border: 1px solid var(--border); border-radius: 18px; padding: 10px; background: #faf7ff; }
+    .map-results .empty { color: var(--muted); padding: 24px 10px; text-align: center; font-size: .9rem; }
+    .map-results .mev { border: 1px solid var(--border); border-inline-start: 4px solid var(--coral); background: #fff; border-radius: 12px;
+      padding: 10px 12px; margin-bottom: 8px; cursor: pointer; transition: background .12s, transform .12s; }
+    .map-results .mev:hover { background: #fff8f3; transform: translateY(-1px); }
+    .map-results .mev h4 { margin: 0 0 3px; font-size: .96rem; }
+    .map-results .mev .who { color: var(--accent); font-weight: 700; font-size: .84rem; }
+    .map-results .mev .meta { color: var(--muted); font-size: .8rem; margin-top: 3px; }
+    .map-results .mev .d { float: left; background: #f1ebfa; border: 1px solid #e6dcf4; border-radius: 8px; padding: 2px 8px; font-size: .78rem; color: var(--accent); font-weight: 700; }
+    @media (max-width: 760px) {
+      .map-body { flex-direction: column; }
+      #mapCanvas { min-height: 280px; flex: none; }
+      .map-results { max-height: 220px; }
+      .map-panel { padding: 16px; }
+    }
+    .sub-card { background: #fff; border-radius: 24px; max-width: 460px; width: 100%; padding: 26px; position: relative; animation: pop .18s ease; box-shadow: 0 30px 70px rgba(40,22,60,.35); }
+    .sub-card h3 { margin: 0 0 4px; font-family: "Frank Ruhl Libre", serif; font-size: 1.3rem; }
+    .sub-card .subhint { color: var(--muted); font-size: .9rem; margin: 0 0 16px; }
+    .sub-card label { display: block; font-size: .85rem; color: var(--muted); margin: 10px 0 4px; }
+    .sub-card input, .sub-card textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 12px; font-family: inherit; font-size: .95rem; color: var(--ink); background: #faf7ff; }
+    .sub-card textarea { min-height: 72px; resize: vertical; }
+    .sub-card .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .sub-card .primary { margin-top: 16px; border: none; background: var(--grad); color: #fff; padding: 12px 22px; border-radius: 12px; font-family: inherit; font-weight: 700; font-size: .98rem; cursor: pointer; width: 100%; box-shadow: 0 10px 22px rgba(122,92,214,.32); transition: filter .15s, transform .15s; }
+    .sub-card .primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .sub-card .primary:disabled { opacity: .6; cursor: default; }
+    .sub-opt { border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 14px; background: #faf7ff; }
+    .sub-opt h4 { margin: 0 0 6px; font-size: 1rem; }
+    .sub-opt p { margin: 0 0 10px; color: var(--muted); font-size: .86rem; }
+    .sub-opt button { border: none; background: var(--grad); color: #fff; padding: 10px 18px; border-radius: 12px; font-family: inherit; font-weight: 700; cursor: pointer; transition: filter .15s, transform .15s; }
+    .sub-opt button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .sub-opt button.ghost { background: #f1ebfa; color: var(--accent); }
+    .sub-status { margin-top: 8px; font-size: .9rem; min-height: 22px; }
+    .sub-status.ok { color: #1b7a3d; } .sub-status.err { color: #b3261e; }
+    .loc-tools { display: flex; gap: 8px; margin-top: 8px; }
+    .loc-tools button { flex: 1; border: none; background: #f1ebfa; color: var(--accent);
+      padding: 10px 8px; border-radius: 12px; font-family: inherit; font-weight: 700; font-size: .9rem; cursor: pointer; transition: transform .12s, background .15s; }
+    .loc-tools button:hover { background: #e9e0f7; transform: translateY(-1px); }
+    .loc-tools button:disabled { opacity: .6; cursor: default; }
+    .loc-info { font-size: .82rem; color: var(--muted); margin-top: 8px; min-height: 18px; }
+    .loc-info.ok { color: #1b7a3d; font-weight: 600; }
+    .loc-info.err { color: #b3261e; }
+
+    footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 40px 20px 46px; }
+    footer .attribution { font-size: .8rem; opacity: .9; margin-bottom: 6px; }
+    footer .attribution a { color: var(--accent); font-weight: 700; }
+    footer .footer-nav { margin-bottom: 14px; }
+    footer .footer-nav a, footer .footer-map-btn { display: inline-block; background: var(--grad); color: #fff; text-decoration: none; font-weight: 700; font-size: .95rem; padding: 12px 26px; border-radius: 999px; border: none; font-family: inherit; cursor: pointer; box-shadow: 0 10px 22px rgba(122,92,214,.30); transition: filter .15s, transform .15s; }
+    footer .footer-nav a:hover, footer .footer-map-btn:hover { filter: brightness(1.08); transform: translateY(-2px); }
+
+    /* ---------- Mobile / small screens ---------- */
+    @media (max-width: 640px) {
+      .wrap { padding: 0 14px; }
+      header.hero { padding: 26px 16px 62px; }
+      .hero .flame { width: 38px; height: 38px; margin-bottom: 6px; }
+      .hero h1 { font-size: clamp(1.35rem, 6.5vw, 1.9rem); }
+      .hero p { font-size: .9rem; }
+      .hero .stat { margin-top: 10px; font-size: .84rem; padding: 5px 14px; }
+      .auth-btn { top: 12px; inset-inline-start: 12px; padding: 7px 12px; font-size: .78rem; }
+      .events-btn { top: 12px; inset-inline-end: 12px; padding: 7px 12px; font-size: .78rem; }
+      .searchbar { margin: -26px auto 18px; padding: 6px; gap: 6px; }
+      .searchbar input { padding: 12px 16px; font-size: 16px; }
+      .searchbar button { padding: 12px 20px; font-size: .95rem; }
+      .cards { gap: 10px; }
+      .card { flex-direction: row; align-items: stretch; min-height: 132px; }
+      .card-photo { flex: 0 0 112px; width: 112px; aspect-ratio: auto; }
+      .card-photo .unit-icon { bottom: 6px; inset-inline-start: 6px; width: 28px; height: 28px; padding: 4px; }
+      .badges { flex-direction: column; gap: 4px; top: 6px; inset-inline-start: 6px; }
+      .badge { font-size: .66rem; padding: 2px 8px; }
+      .card-body { padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+      .card-body h3 { font-size: 1.06rem; }
+      .card-body .role, .card-body .dates { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .card-body .more { margin-top: 6px; font-size: .82rem; }
+      .icon-btn { width: 34px; height: 34px; }
+      .icon-btn svg { width: 18px; height: 18px; }
+      .bell { top: 6px; inset-inline-end: 6px; }
+      .evt-btn { top: 46px; inset-inline-end: 6px; }
+      .evt-view { top: 46px; inset-inline-end: 6px; }
+      body.admin .evt-view { top: 86px; inset-inline-end: 6px; }
+      .loadmore button { width: 100%; }
+      footer { padding: 26px 16px 32px; }
+
+      .modal-bg { padding: 10px 10px 20px; }
+      .modal { border-radius: 16px; }
+      .modal .close { top: 10px; inset-inline-start: 10px; z-index: 3; }
+      .modal-head { flex-direction: column; text-align: center; gap: 12px; padding: 42px 18px 20px; }
+      .modal-head img.photo { width: 100px; height: 128px; }
+      .modal-head h2 { font-size: 1.28rem; }
+      .modal-head .sub { font-size: .9rem; }
+      .modal-body { padding: 18px 16px 24px; }
+      .section-title { font-size: .9rem; }
+      dl.fields { grid-template-columns: 1fr; gap: 0; margin-bottom: 18px; }
+      dl.fields dt { margin-top: 10px; font-size: .8rem; }
+      dl.fields dd { font-size: .95rem; }
+      .story { max-height: 48vh; padding: 14px; font-size: .92rem; }
+      .subscribe-btn { width: 100%; justify-content: center; }
+      .src-link { display: block; margin-top: 16px; }
+
+      .sub-card { padding: 20px 16px; }
+      .sub-card h3 { font-size: 1.2rem; }
+      .sub-card input, .sub-card textarea { font-size: 16px; }
+      .sub-card .row2 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 380px) {
+      .auth-btn { font-size: .72rem; padding: 6px 10px; }
+      .searchbar button { padding: 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <button class="events-btn" id="mapBtn">🗺️ מפת אירועים</button>
+    <button id="authBtn" class="auth-btn">🔑 התחברות מנהל</button>
+    <div class="hero-inner">
+      <svg class="flame" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2c1.6 3.2-.6 4.6-1.6 6.4C9.2 11 10 13 12 13c2 0 3-1.7 2.4-3.6 2 1.5 3.6 3.6 3.6 6.6 0 3.6-2.7 6-6 6s-6-2.4-6-6c0-4.6 3.6-7.4 6-14z" fill="#f2d9ac"/>
+      </svg>
+      <h1>לזכרם — אתר הנצחה</h1>
+      <p>חיפוש לפי שם וצפייה בפרטי החללים</p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <form class="searchbar" id="searchForm">
+      <input id="q" type="search" placeholder="חפש לפי שם..." autocomplete="off" />
+      <button type="submit">חיפוש</button>
+    </form>
+    <div id="results" class="cards"></div>
+    <div class="status" id="status">טוען...</div>
+    <div class="loadmore" id="loadmoreWrap" style="display:none">
+      <button id="loadmore">טען עוד</button>
+    </div>
+  </div>
+
+  <!-- Person details -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <button class="close" id="closeModal" aria-label="סגור">✕</button>
+      <div class="modal-head">
+        <img class="photo" id="mPhoto" alt="" referrerpolicy="no-referrer" onerror="this.src=window.IZKOR.ASSETS+'/defaults/person.jpg'" />
+        <div>
+          <h2 id="mName"></h2>
+          <div class="sub" id="mSub"></div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <button class="subscribe-btn" id="mSubscribe">
+          <svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-5v-1l-1.5-1.5V9a5.5 5.5 0 0 0-4-5.3V3a1.5 1.5 0 0 0-3 0v.7A5.5 5.5 0 0 0 6.5 9v5.5L5 16v1z"/></svg>
+          רישום לעדכונים על אדם זה
+        </button>
+        <div id="mEventsWrap" style="display:none">
+          <div class="section-title">אירועים ועדכונים</div>
+          <div class="events-list" id="mEvents"></div>
+        </div>
+        <div class="section-title">פרטים</div>
+        <dl class="fields" id="mFields"></dl>
+        <div id="mStoryWrap" style="display:none">
+          <div class="section-title">סיפור החיים</div>
+          <div class="story" id="mStory"></div>
+        </div>
+        <a class="src-link" id="mSrc" target="_blank" rel="noopener">לצפייה בעמוד המקור באתר "יזכור" ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subscribe dialog -->
+  <div class="modal-bg" id="subBg">
+    <div class="sub-card">
+      <button class="close" id="closeSub" aria-label="סגור">✕</button>
+      <h3>רישום לעדכונים</h3>
+      <p class="subhint" id="subName"></p>
+      <div class="sub-opt">
+        <h4>🔔 התראות דפדפן (Push)</h4>
+        <p>קבלו התראה קופצת במחשב/טלפון ברגע שמתפרסם אירוע. (באייפון: הוסיפו את האתר למסך הבית קודם.)</p>
+        <button id="pushBtn">הפעל התראות דפדפן</button>
+      </div>
+      <div class="sub-opt">
+        <h4>✉️ התראות במייל</h4>
+        <p>נשלח הודעה לכתובת המייל שלכם.</p>
+        <input id="emailInput" type="email" placeholder="name@example.com" />
+        <button class="ghost" id="emailBtn">הירשם למייל</button>
+      </div>
+      <div class="sub-status" id="subStatus"></div>
+    </div>
+  </div>
+
+  <!-- Login dialog -->
+  <div class="modal-bg" id="loginBg">
+    <div class="sub-card">
+      <button class="close" id="closeLogin" aria-label="סגור">✕</button>
+      <h3>התחברות מנהל</h3>
+      <p class="subhint">הזן את סיסמת המנהל כדי שתוכל להוסיף אירועים לכל אדם.</p>
+      <label>סיסמה</label>
+      <input id="loginPw" type="password" placeholder="סיסמה" autocomplete="current-password" />
+      <button class="primary" id="loginSubmit">התחבר</button>
+      <div class="sub-status" id="loginStatus"></div>
+    </div>
+  </div>
+
+  <!-- Add-event dialog -->
+  <div class="modal-bg" id="evtBg">
+    <div class="sub-card">
+      <button class="close" id="closeEvt" aria-label="סגור">✕</button>
+      <h3>הוספת אירוע</h3>
+      <p class="subhint" id="evtPerson"></p>
+      <label>כותרת האירוע *</label>
+      <input id="evtTitle" placeholder="למשל: טקס אזכרה שנתי" />
+      <label>תיאור</label>
+      <textarea id="evtDesc" placeholder="פרטים נוספים..."></textarea>
+      <div class="row2">
+        <div>
+          <label>תאריך</label>
+          <input id="evtDate" type="date" />
+        </div>
+        <div>
+          <label>שעה</label>
+          <input id="evtTime" type="time" />
+        </div>
+      </div>
+      <label>מקום</label>
+      <input id="evtLoc" placeholder="מקום האירוע (עיר / כתובת)" />
+      <div class="loc-tools">
+        <button type="button" class="ghost" id="evtGeocode">🔍 איתור כתובת</button>
+        <button type="button" class="ghost" id="evtMyLoc">📍 המיקום שלי</button>
+      </div>
+      <div class="loc-info" id="evtLocInfo">מיקום מדויק יאפשר למצוא את האירוע בחיפוש לפי קרבה.</div>
+      <button class="primary" id="evtSubmit">פרסום ושליחת התראות</button>
+      <div class="sub-status" id="evtStatus"></div>
+    </div>
+  </div>
+
+  <!-- Events map -->
+  <div class="map-overlay" id="mapOverlay">
+    <div class="map-panel">
+      <button class="close map-close" id="mapClose" aria-label="סגור">✕</button>
+      <h3>🗺️ מפת אירועים</h3>
+      <p class="subhint">לחצו על המפה כדי לסמן מרכז, הגדירו רדיוס — ויוצגו האירועים באזור. אפשר לגרור את הסיכה.</p>
+      <div class="map-controls">
+        <button class="map-tool" id="mapMyLoc">📍 המיקום שלי</button>
+        <div class="radius-ctrl">
+          <span>רדיוס</span>
+          <input type="range" id="mapRadius" min="1" max="100" value="15" />
+          <b id="mapRadiusVal">15 ק"מ</b>
+        </div>
+      </div>
+      <div class="map-body">
+        <div id="mapCanvas"></div>
+        <div class="map-results" id="mapResults"><div class="empty">לחצו על המפה כדי לבחור אזור.</div></div>
+      </div>
+      <div class="sub-status" id="mapStatus"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-nav"><button id="mapBtn2" class="footer-map-btn">🗺️ מפת אירועים — חפשו לפי אזור ורדיוס</button></div>
+    <div class="attribution">מבוסס על נתונים ותמונות מאתר <a href="https://www.izkor.gov.il" target="_blank" rel="noopener">izkor.gov.il</a> — משרד הביטחון. לשימוש אישי/מחקרי.</div>
+    זכויות © <span id="year"></span>
+  </footer>
+
+  <script src="/config.js"></script>
+  <script>
+    const CFG = window.IZKOR;
+    const SUPABASE_URL = CFG.SUPABASE_URL;
+    const SUPABASE_ANON_KEY = CFG.SUPABASE_ANON_KEY;
+    const ASSETS = CFG.ASSETS;
+    const FUNCTIONS_URL = CFG.FUNCTIONS_URL;
+    const DEFAULT_PHOTO = ASSETS + '/defaults/person.jpg';
+    const PAGE_SIZE = 24;
+
+    const results = document.getElementById('results');
+    const statusEl = document.getElementById('status');
+    const loadmoreWrap = document.getElementById('loadmoreWrap');
+    const loadmoreBtn = document.getElementById('loadmore');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    let offset = 0, term = '', loading = false, done = false, currentPerson = null;
+    let adminPw = localStorage.getItem('izkor_admin_pw') || '';
+    let isAdmin = false;
+    const cardMap = {};
+
+    const headers = { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY };
+
+    // ---------- Auth ----------
+    function applyAuth() {
+      document.body.classList.toggle('admin', isAdmin);
+      const btn = document.getElementById('authBtn');
+      btn.textContent = isAdmin ? '✓ מחובר — יציאה' : '🔑 התחברות מנהל';
+      btn.classList.toggle('on', isAdmin);
+    }
+    function loginStatus(msg, kind) {
+      const el = document.getElementById('loginStatus');
+      el.textContent = msg; el.className = 'sub-status' + (kind ? ' ' + kind : '');
+    }
+    function openLogin() {
+      document.getElementById('loginPw').value = '';
+      loginStatus('');
+      document.getElementById('loginBg').classList.add('open');
+      setTimeout(() => document.getElementById('loginPw').focus(), 50);
+    }
+    function closeLogin() { document.getElementById('loginBg').classList.remove('open'); }
+    async function doLogin() {
+      const pw = document.getElementById('loginPw').value.trim();
+      if (!pw) { loginStatus('הזן סיסמה', 'err'); return; }
+      loginStatus('בודק...');
+      try {
+        const res = await fetch(FUNCTIONS_URL + '/publish-event', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY },
+          body: JSON.stringify({ action: 'verify', password: pw }),
+        });
+        if (res.status === 401) { loginStatus('סיסמה שגויה', 'err'); return; }
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) { loginStatus('שגיאה: ' + (data.error || res.status), 'err'); return; }
+        adminPw = pw; isAdmin = true; localStorage.setItem('izkor_admin_pw', pw);
+        applyAuth(); closeLogin();
+      } catch (e) { loginStatus('שגיאת רשת — נסה שוב', 'err'); }
+    }
+    document.getElementById('loginSubmit').addEventListener('click', doLogin);
+    document.getElementById('loginPw').addEventListener('keydown', (e) => { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('closeLogin').addEventListener('click', closeLogin);
+    document.getElementById('loginBg').addEventListener('click', (e) => { if (e.target.id === 'loginBg') closeLogin(); });
+    document.getElementById('authBtn').addEventListener('click', () => {
+      if (isAdmin) { isAdmin = false; adminPw = ''; localStorage.removeItem('izkor_admin_pw'); applyAuth(); }
+      else openLogin();
+    });
+
+    // ---------- Data ----------
+    function photoUrl(src) {
+      const d = (src && src.data) || {};
+      if (d.has_image && d.legacy_id) return ASSETS + '/person/images/' + d.legacy_id + '.jpg';
+      return DEFAULT_PHOTO;
+    }
+    function unitIcon(src) { const d = (src && src.data) || {}; return d.unit_image ? ASSETS + d.unit_image : null; }
+    function fmtDate(s) {
+      if (!s) return null;
+      const m = String(s).match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+      if (m) return m[1].padStart(2, '0') + '.' + m[2].padStart(2, '0') + '.' + m[3];
+      return String(s);
+    }
+
+    async function fetchPage() {
+      const params = new URLSearchParams();
+      params.set('select', 'person_id,legacy_id,full_name,first_name,last_name,rank,service_type,death_date,url,data');
+      params.set('order', 'full_name.asc');
+      params.set('limit', String(PAGE_SIZE));
+      params.set('offset', String(offset));
+      if (term) params.set('full_name', 'ilike.*' + term + '*');
+      const res = await fetch(SUPABASE_URL + '/rest/v1/persons?' + params.toString(), { headers });
+      if (!res.ok) throw new Error('HTTP ' + res.status + ': ' + (await res.text()));
+      return res.json();
+    }
+
+    async function loadEventsFor(rows) {
+      const ids = rows.map((r) => r.person_id).filter(Boolean);
+      if (!ids.length) return {};
+      const params = new URLSearchParams();
+      params.set('select', 'person_id,title,description,event_date,event_time,location');
+      params.set('person_id', 'in.(' + ids.join(',') + ')');
+      params.set('order', 'event_date.desc');
+      try {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/events?' + params.toString(), { headers });
+        if (!res.ok) return {};
+        const list = await res.json();
+        const map = {};
+        list.forEach((e) => { (map[e.person_id] = map[e.person_id] || []).push(e); });
+        return map;
+      } catch (e) { return {}; }
+    }
+
+    function cardEl(p) {
+      const d = p.data || {};
+      const el = document.createElement('article');
+      el.className = 'card'; el.tabIndex = 0;
+      cardMap[p.person_id] = el;
+      const name = p.full_name || [p.first_name, p.last_name].filter(Boolean).join(' ') || 'ללא שם';
+      const role = [p.rank || d.rank, d.unit].filter(Boolean).join(' · ');
+      const dates = [];
+      const dd = fmtDate(p.death_date || d.death_date);
+      if (dd) dates.push('נפל/ה: ' + dd);
+      if (d.jewish_death_date) dates.push(d.jewish_death_date);
+
+      const badges = [];
+      if (d.is_mia) badges.push('<span class="badge warn">נעדר/ת</span>');
+      if (d.is_kidnapped) badges.push('<span class="badge warn">חטוף/ה</span>');
+      if (p._events && p._events.length) badges.push('<span class="badge event">אירוע</span>');
+
+      const icon = unitIcon(p);
+      el.innerHTML =
+        '<div class="card-photo">' +
+          '<img class="photo" loading="lazy" referrerpolicy="no-referrer" src="' + photoUrl(p) + '" onerror="this.src=\'' + DEFAULT_PHOTO + '\'" alt="" />' +
+          '<div class="badges">' + badges.join('') + '</div>' +
+          '<button class="icon-btn evt-btn" title="הוספת אירוע" aria-label="הוספת אירוע">' +
+            '<svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM12 12v2h-2v2h2v2h2v-2h2v-2h-2v-2h-2z"/></svg>' +
+          '</button>' +
+          '<button class="icon-btn bell" title="רישום לעדכונים" aria-label="רישום לעדכונים">' +
+            '<svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-5v-1l-1.5-1.5V9a5.5 5.5 0 0 0-4-5.3V3a1.5 1.5 0 0 0-3 0v.7A5.5 5.5 0 0 0 6.5 9v5.5L5 16v1z"/></svg>' +
+          '</button>' +
+          '<button class="icon-btn evt-view" title="הצגת האירועים של אדם זה" aria-label="הצגת האירועים">' +
+            '<svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7v-5z"/></svg>' +
+          '</button>' +
+          (icon ? '<img class="unit-icon" loading="lazy" referrerpolicy="no-referrer" src="' + icon + '" alt="" />' : '') +
+        '</div>' +
+        '<div class="card-body"><h3></h3><p class="role"></p><p class="dates"></p><div class="more">לפרטים מלאים ›</div></div>';
+      el.querySelector('h3').textContent = name;
+      el.querySelector('.role').textContent = role;
+      el.querySelector('.dates').textContent = dates.join(' · ');
+      el.addEventListener('click', () => openModal(p));
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(p); } });
+      el.querySelector('.bell').addEventListener('click', (e) => { e.stopPropagation(); openSubscribe(p, name); });
+      el.querySelector('.evt-view').addEventListener('click', (e) => {
+        e.stopPropagation(); openModal(p);
+        setTimeout(() => { const w = document.getElementById('mEventsWrap'); if (w) w.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
+      });
+      el.querySelector('.evt-btn').addEventListener('click', (e) => { e.stopPropagation(); openEvent(p, name); });
+      return el;
+    }
+
+    function updateCardBadge(p) {
+      const el = cardMap[p.person_id]; if (!el) return;
+      const badges = el.querySelector('.badges'); if (!badges) return;
+      const existing = badges.querySelector('.badge.event');
+      const has = p._events && p._events.length;
+      if (has && !existing) { const s = document.createElement('span'); s.className = 'badge event'; s.textContent = 'אירוע'; badges.appendChild(s); }
+      if (!has && existing) existing.remove();
+    }
+
+    async function load(reset) {
+      if (loading) return;
+      if (reset) { offset = 0; done = false; results.innerHTML = ''; }
+      if (done) return;
+      loading = true; statusEl.style.display = 'block'; statusEl.textContent = 'טוען...';
+      try {
+        const rows = await fetchPage();
+        const evMap = await loadEventsFor(rows);
+        rows.forEach((p) => { p._events = evMap[p.person_id] || []; results.appendChild(cardEl(p)); });
+        offset += rows.length;
+        if (rows.length < PAGE_SIZE) done = true;
+        if (done && offset === 0) { statusEl.style.display = 'block'; statusEl.textContent = 'לא נמצאו תוצאות.'; }
+        else statusEl.style.display = 'none';
+        loadmoreWrap.style.display = done ? 'none' : 'flex';
+      } catch (err) {
+        statusEl.style.display = 'block'; statusEl.textContent = 'שגיאה: ' + err.message;
+      } finally { loading = false; }
+    }
+
+    function field(label, value) {
+      if (typeof value === 'string') value = value.replace(/\s+/g, ' ').trim();
+      if (value === null || value === undefined || value === '') return null;
+      const dt = document.createElement('dt'); dt.textContent = label;
+      const dd = document.createElement('dd'); dd.textContent = String(value);
+      return [dt, dd];
+    }
+
+    function renderModalEvents(p) {
+      const eventsWrap = document.getElementById('mEventsWrap');
+      const eventsEl = document.getElementById('mEvents'); eventsEl.innerHTML = '';
+      eventsWrap.style.display = 'block';
+      const evs = p._events || [];
+      if (!evs.length) {
+        const empty = document.createElement('div'); empty.className = 'events-empty';
+        empty.textContent = 'אין אירועים עדיין עבור אדם זה. הירשמו לעדכונים כדי לקבל התראה כשמתפרסם אירוע.';
+        eventsEl.appendChild(empty); return;
+      }
+      evs.forEach((e) => {
+        const item = document.createElement('div'); item.className = 'event-item';
+        const when = [e.event_date ? fmtDate(e.event_date) : '', e.event_time].filter(Boolean).join(' · ');
+        item.innerHTML = '<h4></h4>' + (when ? '<div class="when"></div>' : '') + (e.description ? '<p></p>' : '') + (e.location ? '<div class="loc"></div>' : '');
+        item.querySelector('h4').textContent = e.title || 'אירוע';
+        if (when) item.querySelector('.when').textContent = when;
+        if (e.description) item.querySelector('p').textContent = e.description;
+        if (e.location) item.querySelector('.loc').textContent = '📍 ' + e.location;
+        eventsEl.appendChild(item);
+      });
+    }
+
+    function openModal(p) {
+      currentPerson = p;
+      const d = p.data || {};
+      const name = p.full_name || [p.first_name, p.last_name].filter(Boolean).join(' ') || 'ללא שם';
+      document.getElementById('mName').textContent = name;
+      const photo = document.getElementById('mPhoto'); photo.src = photoUrl(p); photo.alt = name;
+      document.getElementById('mSub').textContent = [p.rank || d.rank, d.unit].filter(Boolean).join(' · ');
+
+      const dl = document.getElementById('mFields'); dl.innerHTML = '';
+      const status = [];
+      if (d.is_mia) status.push('נעדר/ת');
+      if (d.is_kidnapped) status.push('חטוף/ה');
+      const rows = [
+        ['שם מלא', p.full_name || d.full_name],
+        ['שם חלופי', d.alternate_name],
+        ['דרגה', p.rank || d.rank],
+        ['יחידה', d.unit],
+        ['תאריך נפילה', d.fell_on_dates_label || fmtDate(p.death_date || d.death_date)],
+        ['גיל בנפילה', d.fell_on_age_label || (d.age ? 'בן ' + d.age : null)],
+        ['שם האב', d.father_name],
+        ['שם האם', d.mother_name],
+        ['מקום לידה', d.birth_city],
+        ['מקום מנוחה', d.resting_place],
+        ['בית עלמין', d.cemetery_name],
+        ['חלקה', d.grave_area],
+        ['שורה', d.grave_row_number],
+        ['קבר', d.grave_number],
+        ['מצב', status.length ? status.join(' · ') : null],
+      ];
+      rows.forEach(([l, v]) => { const f = field(l, v); if (f) dl.append(f[0], f[1]); });
+
+      renderModalEvents(p);
+
+      const story = d.life_story || '';
+      const storyWrap = document.getElementById('mStoryWrap');
+      if (story) { storyWrap.style.display = 'block'; document.getElementById('mStory').textContent = story; }
+      else storyWrap.style.display = 'none';
+
+      const src = document.getElementById('mSrc');
+      const srcUrl = p.url || (p.person_id ? 'https://www.izkor.gov.il/' + p.person_id : null);
+      if (srcUrl) { src.href = srcUrl; src.style.display = 'inline-block'; } else src.style.display = 'none';
+
+      document.getElementById('modalBg').classList.add('open');
+    }
+
+    // ---------- Subscribe ----------
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+      const raw = atob(base64);
+      const out = new Uint8Array(raw.length);
+      for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+      return out;
+    }
+    function subStatus(msg, kind) {
+      const el = document.getElementById('subStatus');
+      el.textContent = msg; el.className = 'sub-status' + (kind ? ' ' + kind : '');
+    }
+    async function postSubscription(payload) {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/subscriptions', {
+        method: 'POST',
+        headers: Object.assign({ 'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=minimal' }, headers),
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok && res.status !== 409) throw new Error('HTTP ' + res.status + ' ' + (await res.text()));
+    }
+    function openSubscribe(p, name) {
+      currentPerson = p;
+      document.getElementById('subName').textContent = name ? ('עבור: ' + name) : '';
+      document.getElementById('emailInput').value = '';
+      subStatus('');
+      document.getElementById('subBg').classList.add('open');
+    }
+    async function enablePush() {
+      const p = currentPerson; if (!p) return;
+      try {
+        if (!('serviceWorker' in navigator) || !('PushManager' in window)) throw new Error('הדפדפן אינו תומך בהתראות Push');
+        subStatus('מפעיל...');
+        const reg = await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.ready;
+        const perm = await Notification.requestPermission();
+        if (perm !== 'granted') throw new Error('לא ניתנה הרשאה להתראות בדפדפן');
+        let sub = await reg.pushManager.getSubscription();
+        if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(CFG.VAPID_PUBLIC_KEY) });
+        const j = sub.toJSON();
+        await postSubscription({ person_id: p.person_id, channel: 'push', endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, user_agent: navigator.userAgent });
+        subStatus('נרשמת להתראות דפדפן ✓', 'ok');
+      } catch (err) { subStatus(err.message, 'err'); }
+    }
+    async function subscribeEmail() {
+      const p = currentPerson; if (!p) return;
+      const email = document.getElementById('emailInput').value.trim();
+      if (!/^\S+@\S+\.\S+$/.test(email)) { subStatus('כתובת מייל לא תקינה', 'err'); return; }
+      try {
+        subStatus('שולח...');
+        await postSubscription({ person_id: p.person_id, channel: 'email', email });
+        subStatus('נרשמת להתראות במייל ✓', 'ok');
+      } catch (err) { subStatus(err.message, 'err'); }
+    }
+    document.getElementById('pushBtn').addEventListener('click', enablePush);
+    document.getElementById('emailBtn').addEventListener('click', subscribeEmail);
+    function closeSub() { document.getElementById('subBg').classList.remove('open'); }
+    document.getElementById('closeSub').addEventListener('click', closeSub);
+    document.getElementById('subBg').addEventListener('click', (e) => { if (e.target.id === 'subBg') closeSub(); });
+    document.getElementById('mSubscribe').addEventListener('click', () => {
+      const p = currentPerson;
+      const name = p ? (p.full_name || [p.first_name, p.last_name].filter(Boolean).join(' ')) : '';
+      openSubscribe(p, name);
+    });
+
+    // ---------- Add event (admin) ----------
+    function evtStatus(msg, kind) {
+      const el = document.getElementById('evtStatus');
+      el.textContent = msg; el.className = 'sub-status' + (kind ? ' ' + kind : '');
+    }
+    let evtLat = null, evtLng = null;
+    function setLocInfo(msg, kind) {
+      const el = document.getElementById('evtLocInfo');
+      el.textContent = msg || ''; el.className = 'loc-info' + (kind ? ' ' + kind : '');
+    }
+    async function photonGeocode(q) {
+      const r = await fetch('https://photon.komoot.io/api/?limit=1&lang=he&q=' + encodeURIComponent(q));
+      const j = await r.json();
+      return (j.features && j.features[0]) || null;
+    }
+    function photonLabel(p) {
+      return [p.name, p.street, p.city || p.county, p.state, p.country]
+        .filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(', ');
+    }
+    async function geocodeLocation() {
+      const q = document.getElementById('evtLoc').value.trim();
+      if (!q) { setLocInfo('הזן מקום לחיפוש', 'err'); return; }
+      setLocInfo('מחפש כתובת...');
+      try {
+        const f = await photonGeocode(q);
+        if (!f) { evtLat = evtLng = null; setLocInfo('לא נמצא מיקום מתאים', 'err'); return; }
+        evtLng = f.geometry.coordinates[0]; evtLat = f.geometry.coordinates[1];
+        setLocInfo('✓ מיקום נקבע: ' + (photonLabel(f.properties || {}) || q), 'ok');
+      } catch (e) { setLocInfo('שגיאה באיתור הכתובת', 'err'); }
+    }
+    function useMyLocation() {
+      if (!navigator.geolocation) { setLocInfo('הדפדפן אינו תומך באיתור מיקום', 'err'); return; }
+      setLocInfo('מאתר מיקום נוכחי...');
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        evtLat = pos.coords.latitude; evtLng = pos.coords.longitude;
+        setLocInfo('✓ מיקום נוכחי נקבע', 'ok');
+        if (!document.getElementById('evtLoc').value.trim()) {
+          try {
+            const r = await fetch('https://photon.komoot.io/reverse?lon=' + evtLng + '&lat=' + evtLat + '&lang=he');
+            const j = await r.json();
+            const p = (j.features && j.features[0] && j.features[0].properties) || {};
+            const label = photonLabel(p);
+            if (label) document.getElementById('evtLoc').value = label;
+          } catch (e) {}
+        }
+      }, () => setLocInfo('לא ניתן לקבל מיקום — בדוק הרשאות', 'err'), { enableHighAccuracy: true, timeout: 12000 });
+    }
+    function openEvent(p, name) {
+      if (!isAdmin) { openLogin(); return; }
+      currentPerson = p;
+      document.getElementById('evtPerson').textContent = name ? ('עבור: ' + name) : '';
+      ['evtTitle', 'evtDesc', 'evtDate', 'evtTime', 'evtLoc'].forEach((id) => { document.getElementById(id).value = ''; });
+      evtLat = evtLng = null;
+      setLocInfo('מיקום מדויק יאפשר למצוא את האירוע בחיפוש לפי קרבה.');
+      evtStatus('');
+      document.getElementById('evtBg').classList.add('open');
+      setTimeout(() => document.getElementById('evtTitle').focus(), 50);
+    }
+    function closeEvt() { document.getElementById('evtBg').classList.remove('open'); }
+    async function submitEvent() {
+      const p = currentPerson;
+      if (!p) { evtStatus('לא נבחר אדם', 'err'); return; }
+      const title = document.getElementById('evtTitle').value.trim();
+      if (!title) { evtStatus('יש להזין כותרת', 'err'); return; }
+      const btn = document.getElementById('evtSubmit'); btn.disabled = true; evtStatus('מפרסם ושולח התראות...');
+      try {
+        const locText = document.getElementById('evtLoc').value.trim();
+        if (evtLat === null && locText) {
+          try { const f = await photonGeocode(locText); if (f) { evtLng = f.geometry.coordinates[0]; evtLat = f.geometry.coordinates[1]; } } catch (e) {}
+        }
+        const res = await fetch(FUNCTIONS_URL + '/publish-event', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY },
+          body: JSON.stringify({
+            password: adminPw,
+            person_id: p.person_id,
+            title,
+            description: document.getElementById('evtDesc').value.trim() || null,
+            event_date: document.getElementById('evtDate').value || null,
+            event_time: document.getElementById('evtTime').value || null,
+            location: locText || null,
+            lat: evtLat,
+            lng: evtLng,
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.status === 401) {
+          isAdmin = false; adminPw = ''; localStorage.removeItem('izkor_admin_pw'); applyAuth();
+          evtStatus('פג תוקף ההתחברות — התחבר מחדש', 'err');
+        } else if (!res.ok) {
+          evtStatus('שגיאה: ' + (data.error || res.status), 'err');
+        } else {
+          const r = data.results || {};
+          evtStatus('פורסם ✓ נשלחו ' + (r.pushed || 0) + ' התראות Push, ' + (r.mailed || 0) + ' מיילים (מתוך ' + (r.total || 0) + ' מנויים).', 'ok');
+          ['evtTitle', 'evtDesc', 'evtDate', 'evtTime', 'evtLoc'].forEach((id) => { document.getElementById(id).value = ''; });
+          evtLat = evtLng = null;
+          setLocInfo('מיקום מדויק יאפשר למצוא את האירוע בחיפוש לפי קרבה.');
+          const map = await loadEventsFor([p]);
+          p._events = map[p.person_id] || [];
+          updateCardBadge(p);
+          if (currentPerson === p) renderModalEvents(p);
+        }
+      } catch (err) { evtStatus('שגיאה: ' + err.message, 'err'); }
+      finally { btn.disabled = false; }
+    }
+    document.getElementById('evtSubmit').addEventListener('click', submitEvent);
+    document.getElementById('evtGeocode').addEventListener('click', geocodeLocation);
+    document.getElementById('evtMyLoc').addEventListener('click', useMyLocation);
+    document.getElementById('closeEvt').addEventListener('click', closeEvt);
+    document.getElementById('evtBg').addEventListener('click', (e) => { if (e.target.id === 'evtBg') closeEvt(); });
+
+    // ---------- Events map ----------
+    let mapInst = null, mapLayer = null, mapCircle = null, mapCenterMarker = null;
+    let mapEvents = [], mapCenter = null, mapRadiusKm = 15;
+    let leafletReady = null;
+
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+    function distKm(lat1, lon1, lat2, lon2) {
+      const R = 6371, t = (d) => d * Math.PI / 180;
+      const dLat = t(lat2 - lat1), dLon = t(lon2 - lon1);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(t(lat1)) * Math.cos(t(lat2)) * Math.sin(dLon / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(a));
+    }
+    function loadLeaflet() {
+      if (leafletReady) return leafletReady;
+      leafletReady = new Promise((resolve, reject) => {
+        const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
+        const s = document.createElement('script'); s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'; s.onload = resolve; s.onerror = reject; document.body.appendChild(s);
+      });
+      return leafletReady;
+    }
+    async function fetchGeoEvents() {
+      const params = new URLSearchParams();
+      params.set('select', 'id,person_id,title,description,event_date,event_time,location,lat,lng');
+      params.set('lat', 'not.is.null');
+      params.set('order', 'created_at.desc');
+      const res = await fetch(SUPABASE_URL + '/rest/v1/events?' + params.toString(), { headers });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const list = await res.json();
+      const ids = [...new Set(list.map((e) => e.person_id).filter(Boolean))];
+      if (ids.length) {
+        const p = new URLSearchParams(); p.set('select', 'person_id,full_name'); p.set('person_id', 'in.(' + ids.join(',') + ')');
+        try { const pr = await fetch(SUPABASE_URL + '/rest/v1/persons?' + p.toString(), { headers }); if (pr.ok) { const pl = await pr.json(); const m = {}; pl.forEach((x) => { m[x.person_id] = x.full_name; }); list.forEach((e) => { e.person_name = m[e.person_id] || ''; }); } } catch (e) {}
+      }
+      return list;
+    }
+    function mapPopupHtml(e) {
+      return '<b>' + esc(e.title || 'אירוע') + '</b>' + (e.person_name ? '<br>לזכר ' + esc(e.person_name) : '') +
+        (e.event_date ? '<br>' + esc(fmtDate(e.event_date)) + (e.event_time ? ' · ' + esc(e.event_time) : '') : '') +
+        (e.location ? '<br>📍 ' + esc(e.location) : '');
+    }
+    function renderMapResults() {
+      const el = document.getElementById('mapResults');
+      if (!mapCenter) { el.innerHTML = '<div class="empty">לחצו על המפה כדי לבחור אזור.</div>'; return; }
+      const list = mapEvents.filter((e) => e.lat != null && e.lng != null)
+        .map((e) => ({ e, d: distKm(mapCenter.lat, mapCenter.lng, e.lat, e.lng) }))
+        .filter((x) => x.d <= mapRadiusKm).sort((a, b) => a.d - b.d);
+      if (!list.length) { el.innerHTML = '<div class="empty">לא נמצאו אירועים ברדיוס ' + mapRadiusKm + ' ק"מ.</div>'; return; }
+      el.innerHTML = '';
+      list.forEach(({ e, d }) => {
+        const item = document.createElement('div'); item.className = 'mev';
+        const meta = [e.event_date ? fmtDate(e.event_date) : '', e.event_time, e.location].filter(Boolean).join(' · ');
+        item.innerHTML = '<span class="d">' + (d < 1 ? '<1' : Math.round(d)) + ' ק"מ</span><h4>' + esc(e.title || 'אירוע') + '</h4>' +
+          (e.person_name ? '<div class="who">לזכר ' + esc(e.person_name) + '</div>' : '') +
+          (meta ? '<div class="meta">' + esc(meta) + '</div>' : '');
+        item.addEventListener('click', () => { closeMap(); openPersonById(e.person_id); });
+        el.appendChild(item);
+      });
+    }
+    function drawCircle() { if (mapCircle && mapCenter) mapCircle.setLatLng([mapCenter.lat, mapCenter.lng]).setRadius(mapRadiusKm * 1000); }
+    function drawMap() {
+      if (!mapInst) return;
+      mapLayer.clearLayers();
+      mapCenterMarker = null;
+      if (mapCircle) { mapInst.removeLayer(mapCircle); mapCircle = null; }
+      const pts = [];
+      mapEvents.forEach((e) => {
+        if (e.lat == null || e.lng == null) return;
+        const inR = mapCenter ? distKm(mapCenter.lat, mapCenter.lng, e.lat, e.lng) <= mapRadiusKm : true;
+        const m = L.circleMarker([e.lat, e.lng], { radius: inR ? 7 : 5, color: inR ? '#7a5cd6' : '#c3b6dd', weight: 2, fillColor: inR ? '#e6a94a' : '#ded3ef', fillOpacity: inR ? .95 : .6 });
+        m.bindPopup(mapPopupHtml(e));
+        m.addTo(mapLayer); pts.push([e.lat, e.lng]);
+      });
+      if (mapCenter) {
+        mapCenterMarker = L.marker([mapCenter.lat, mapCenter.lng], { draggable: true }).addTo(mapLayer);
+        mapCenterMarker.on('dragend', () => { const ll = mapCenterMarker.getLatLng(); mapCenter = { lat: ll.lat, lng: ll.lng }; drawCircle(); drawMap(); renderMapResults(); });
+        mapCircle = L.circle([mapCenter.lat, mapCenter.lng], { radius: mapRadiusKm * 1000, color: '#b3261e', weight: 1, fillColor: '#b3261e', fillOpacity: .07 }).addTo(mapInst);
+        pts.push([mapCenter.lat, mapCenter.lng]);
+      }
+      if (pts.length) mapInst.fitBounds(pts, { padding: [40, 40], maxZoom: 13 });
+      setTimeout(() => mapInst.invalidateSize(), 150);
+    }
+    function setMapCenter(lat, lng) { mapCenter = { lat, lng }; drawCircle(); drawMap(); renderMapResults(); }
+    async function initMap() {
+      await loadLeaflet();
+      if (!mapInst) {
+        mapInst = L.map('mapCanvas', { scrollWheelZoom: true }).setView([31.5, 34.9], 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(mapInst);
+        mapLayer = L.layerGroup().addTo(mapInst);
+        mapInst.on('click', (ev) => { setMapCenter(ev.latlng.lat, ev.latlng.lng); });
+      }
+      setTimeout(() => mapInst.invalidateSize(), 150);
+    }
+    async function openMap() {
+      document.getElementById('mapOverlay').classList.add('open');
+      document.getElementById('mapStatus').textContent = '';
+      try {
+        await initMap();
+        if (!mapEvents.length) {
+          document.getElementById('mapResults').innerHTML = '<div class="empty">טוען אירועים...</div>';
+          mapEvents = await fetchGeoEvents();
+        }
+        drawMap(); renderMapResults();
+        if (!mapEvents.length) document.getElementById('mapResults').innerHTML = '<div class="empty">אין עדיין אירועים עם מיקום. הוסיפו מקום לאירוע כדי שיופיע כאן.</div>';
+      } catch (err) { document.getElementById('mapStatus').textContent = 'שגיאה: ' + err.message; }
+    }
+    function closeMap() { document.getElementById('mapOverlay').classList.remove('open'); }
+    async function openPersonById(id) {
+      if (!id) return;
+      try {
+        const p = new URLSearchParams(); p.set('select', '*'); p.set('person_id', 'eq.' + id);
+        const res = await fetch(SUPABASE_URL + '/rest/v1/persons?' + p.toString(), { headers });
+        const list = await res.json();
+        if (list && list[0]) { const per = list[0]; const evMap = await loadEventsFor([per]); per._events = evMap[per.person_id] || []; openModal(per); }
+      } catch (e) {}
+    }
+    document.getElementById('mapBtn').addEventListener('click', openMap);
+    document.getElementById('mapBtn2').addEventListener('click', openMap);
+    document.getElementById('mapClose').addEventListener('click', closeMap);
+    document.getElementById('mapOverlay').addEventListener('click', (e) => { if (e.target.id === 'mapOverlay') closeMap(); });
+    document.getElementById('mapRadius').addEventListener('input', (e) => { mapRadiusKm = Number(e.target.value); document.getElementById('mapRadiusVal').textContent = mapRadiusKm + ' ק"מ'; drawCircle(); drawMap(); renderMapResults(); });
+    document.getElementById('mapMyLoc').addEventListener('click', () => {
+      if (!navigator.geolocation) { document.getElementById('mapStatus').textContent = 'הדפדפן אינו תומך באיתור מיקום'; return; }
+      navigator.geolocation.getCurrentPosition((pos) => {
+        setMapCenter(pos.coords.latitude, pos.coords.longitude);
+        if (mapInst) mapInst.setView([pos.coords.latitude, pos.coords.longitude], 13);
+      }, () => { document.getElementById('mapStatus').textContent = 'לא ניתן לקבל מיקום — בדוק הרשאות'; }, { enableHighAccuracy: true, timeout: 12000 });
+    });
+
+    // ---------- Modal close + search ----------
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    document.getElementById('modalBg').addEventListener('click', (e) => { if (e.target.id === 'modalBg') closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeSub(); closeLogin(); closeEvt(); closeMap(); } });
+    function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
+
+    document.getElementById('searchForm').addEventListener('submit', (e) => {
+      e.preventDefault(); term = document.getElementById('q').value.trim(); load(true);
+    });
+    loadmoreBtn.addEventListener('click', () => load(false));
+
+    // restore admin session (optimistic) and re-validate quietly
+    if (adminPw) {
+      isAdmin = true; applyAuth();
+      fetch(FUNCTIONS_URL + '/publish-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY },
+        body: JSON.stringify({ action: 'verify', password: adminPw }),
+      }).then((r) => { if (r.status === 401) { isAdmin = false; adminPw = ''; localStorage.removeItem('izkor_admin_pw'); applyAuth(); } }).catch(() => {});
+    } else {
+      applyAuth();
+    }
+
+    const urlQ = new URLSearchParams(location.search).get('q');
+    if (urlQ) { term = urlQ; document.getElementById('q').value = urlQ; }
+    load(true);
+  </script>
+</body>
+</html>
